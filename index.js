@@ -37,18 +37,67 @@
   //   .catch(err => console.error(err))
 
 
-//ASYNC / AWAIT 
+//ASYNC / AWAIT (GET)
 
-async function getData() {
-  const response = await fetch ("people.json");
-  const data = await response.json();
+// async function getData() {
+//   const response = await fetch ("people.json");
+//   const data = await response.json();
 
-  data.forEach(person => {
-    const div = document.createElement("div");
-    div.innerHTML = person.name;
-    document.body.appendChild(div)
+//   data.forEach(person => {
+//     const div = document.createElement("div");
+//     div.innerHTML = person.name;
+//     document.body.appendChild(div)
+//   })
+// }
+
+// getData()
+
+async function getPosts() {
+  const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts')
+  const posts = await postPromise.json()
+  
+  let html = "";
+
+  posts.slice(0,5).forEach ( post => {
+    const title = post.title;
+    const body = post.body
+    html += `
+      <div class="post">
+        <h3>${title}</h3>
+        <p>${body}</p>
+      </div>
+    `
   })
+  document.body.innerHTML = html;
 }
 
-getData()
+getPosts()
 
+//ASYNC / AWAIT (GET) - ERROR HANDLING WITH IF STATEMENT
+
+async function getPosts() {
+  const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts');
+// IF STATEMENT HERE
+  if(postPromise.ok) {
+    const posts = await postPromise.json()
+    let html = "";
+  
+    posts.slice(0,5).forEach ( post => {
+      const title = post.title;
+      const body = post.body
+      html += `
+        <div class="post">
+          <h3>${title}</h3>
+          <p>${body}</p>
+        </div>
+      `
+    })
+
+    document.body.innerHTML = html;
+  } else {
+      console.error(`Error: ${postPromise.status}`)
+  }
+
+}
+
+getPosts()
