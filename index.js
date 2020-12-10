@@ -52,52 +52,88 @@
 
 // getData()
 
-async function getPosts() {
-  const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts')
-  const posts = await postPromise.json()
+// async function getPosts() {
+//   const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts')
+//   const posts = await postPromise.json()
   
-  let html = "";
+//   let html = "";
 
-  posts.slice(0,5).forEach ( post => {
-    const title = post.title;
-    const body = post.body
-    html += `
-      <div class="post">
-        <h3>${title}</h3>
-        <p>${body}</p>
-      </div>
-    `
-  })
-  document.body.innerHTML = html;
-}
+//   posts.slice(0,5).forEach ( post => {
+//     const title = post.title;
+//     const body = post.body
+//     html += `
+//       <div class="post">
+//         <h3>${title}</h3>
+//         <p>${body}</p>
+//       </div>
+//     `
+//   })
+//   document.body.innerHTML = html;
+// }
 
-getPosts()
+// getPosts()
 
 //ASYNC / AWAIT (GET) - ERROR HANDLING WITH IF STATEMENT
 
-async function getPosts() {
-  const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts');
+// async function getPosts() {
+//   const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts');
 // IF STATEMENT HERE
-  if(postPromise.ok) {
-    const posts = await postPromise.json()
-    let html = "";
+//   if(postPromise.ok) {
+//     const posts = await postPromise.json()
+//     let html = "";
   
-    posts.slice(0,5).forEach ( post => {
-      const title = post.title;
-      const body = post.body
-      html += `
-        <div class="post">
-          <h3>${title}</h3>
-          <p>${body}</p>
-        </div>
-      `
-    })
+//     posts.slice(0,5).forEach ( post => {
+//       const title = post.title;
+//       const body = post.body
+//       html += `
+//         <div class="post">
+//           <h3>${title}</h3>
+//           <p>${body}</p>
+//         </div>
+//       `
+//     })
 
-    document.body.innerHTML = html;
-  } else {
-      console.error(`Error: ${postPromise.status}`)
-  }
+//     document.body.innerHTML = html;
+//   } else {
+//       console.error(`Error: ${postPromise.status}`)
+//   }
+
+// }
+
+// getPosts()
+
+// FETCH BLOG POSTS (POST) STYLE BOOTSTRAP FORM
+
+document.getElementById("fetchForm").addEventListener("submit", submitPost);
+
+// 1 PREVENT DEFAULT 
+async function submitPost(e) {
+  e.preventDefault();
+
+// 2 GET THE VALUES FROM USER
+  let title = document.getElementById("titleInput").value
+  let body = document.getElementById("bodyInput").value
+
+// 3 DEFINE OPTIONS
+  const options = {
+    method: "POST",
+    body: JSON.stringify({title: title, body: body}),
+    headers: new Headers({
+      "Content-Type": "application/json"
+    })
+  };
+
+// 4 FETCH DATA AND DISPLAY IT 
+  const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts', options);
+  const post = await postPromise.json();
+
+  title = post.title;
+  body = post.body;
+
+  document.querySelector(".card-title").innerHTML = title;
+  document.querySelector(".card-text").innerHTML = body;
+  
+  // CLEAR INPUTS AFTER SUBMIT
+  document.getElementById('fetchForm').reset();
 
 }
-
-getPosts()
