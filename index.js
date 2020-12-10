@@ -10,6 +10,7 @@
 //     })
 //   })
 
+
   // FETCH PHOTO FROM EXTERNAL API
 
   // fetch ("https://jsonplaceholder.typicode.com/photos/3")
@@ -21,15 +22,33 @@
   //     document.body.appendChild(img)
   //   })
 
+
   // ERROR HANDLING
 
-  fetch("people.json")
-    .then(res => {throw 404} )
-    .then (json => {
-      json.forEach (person => {
-        const div = createElement("div")
-        div.innerHTML = `${person.name} is ${person.age}`
-        document.body.appendChils(div)
-      })
-    })
-    .catch(err => console.error(err))
+  // fetch("people.json")
+  //   .then(res => {throw 404} )
+  //   .then (json => {
+  //     json.forEach (person => {
+  //       const div = createElement("div")
+  //       div.innerHTML = `${person.name} is ${person.age}`
+  //       document.body.appendChils(div)
+  //     })
+  //   })
+  //   .catch(err => console.error(err))
+
+
+//ASYNC / AWAIT 
+
+async function getData() {
+  const response = await fetch ("people.json");
+  const data = await response.json();
+
+  data.forEach(person => {
+    const div = document.createElement("div");
+    div.innerHTML = person.name;
+    document.body.appendChild(div)
+  })
+}
+
+getData()
+
