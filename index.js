@@ -104,36 +104,82 @@
 
 // FETCH BLOG POSTS (POST) STYLE BOOTSTRAP FORM
 
-document.getElementById("fetchForm").addEventListener("submit", submitPost);
+// document.getElementById("fetchForm").addEventListener("submit", submitPost);
 
 // 1 PREVENT DEFAULT 
-async function submitPost(e) {
-  e.preventDefault();
+// async function submitPost(e) {
+//   e.preventDefault();
 
 // 2 GET THE VALUES FROM USER
-  let title = document.getElementById("titleInput").value
-  let body = document.getElementById("bodyInput").value
+  // let title = document.getElementById("titleInput").value
+  // let body = document.getElementById("bodyInput").value
 
 // 3 DEFINE OPTIONS
-  const options = {
-    method: "POST",
-    body: JSON.stringify({title: title, body: body}),
-    headers: new Headers({
-      "Content-Type": "application/json"
-    })
-  };
+  // const options = {
+  //   method: "POST",
+  //   body: JSON.stringify({title: title, body: body}),
+  //   headers: new Headers({
+  //     "Content-Type": "application/json"
+  //   })
+  // };
 
-// 4 FETCH DATA AND DISPLAY IT 
-  const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts', options);
-  const post = await postPromise.json();
+// 4 FETCH DATA AND DISPLAY IT (plus error handling)
+  // const postPromise = await fetch('https://jsonplaceholder.typicode.com/posts', options);
+    
+  //   if (postPromise.ok) {
+  //     const post = await postPromise.json();
 
-  title = post.title;
-  body = post.body;
+  //     title = post.title;
+  //     body = post.body;
+  //   } else {
+  //     title = "Error";
+  //     body = `Status: ${postPromise.status}`
+  //   }
 
-  document.querySelector(".card-title").innerHTML = title;
-  document.querySelector(".card-text").innerHTML = body;
+
+  // document.querySelector(".card-title").innerHTML = title;
+  // document.querySelector(".card-text").innerHTML = body;
   
   // CLEAR INPUTS AFTER SUBMIT
-  document.getElementById('fetchForm').reset();
+//   document.getElementById('fetchForm').reset();
 
+// }
+
+// --------------------------------
+
+// async function getData() {
+//   const response = await fetch ("http://35.178.207.61:8080/pubmate/api/0.1/pub/1/all");
+//   console.log(response);
+//   const data = await response.json();
+//   console.log(data);
+// }
+
+
+
+fetch("http://35.178.207.61:8080/pubmate/api/0.1/user/1")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json.username)
+      // const div = document.createElement("div")
+      // div.innerHTML = `User Name: ${json.username} Email Adress:${json.email}`
+      // document.appendChild(div)
+    // json.forEach( person => {
+    //   const div = document.createElement("div");
+    //   div.innerHTML = `${person.name} is ${person.age}`
+    //   document.body.appendChild(div); 
+    })
+
+
+async function getData() {
+  const response = await fetch ("http://35.178.207.61:8080/pubmate/api/0.1/user/1");
+  const data = await response.json();
+  console.log(data)
+
+  // data.forEach(person => {
+    const div = document.createElement("div");
+    div.innerHTML = `User Name: ${data.username} Email Adress:${data.email}`
+    document.body.appendChild(div)
+  // })
 }
+
+getData()
