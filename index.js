@@ -155,31 +155,14 @@
 // }
 
 
-
-fetch("http://35.178.207.61:8080/pubmate/api/0.1/user/1")
-  .then(response => response.json())
-  .then(json => {
-    console.log(json.username)
-      // const div = document.createElement("div")
-      // div.innerHTML = `User Name: ${json.username} Email Adress:${json.email}`
-      // document.appendChild(div)
-    // json.forEach( person => {
-    //   const div = document.createElement("div");
-    //   div.innerHTML = `${person.name} is ${person.age}`
-    //   document.body.appendChild(div); 
-    })
-
-
 async function getData() {
   const response = await fetch ("http://35.178.207.61:8080/pubmate/api/0.1/user/1");
   const data = await response.json();
   console.log(data)
-
-  // data.forEach(person => {
     const div = document.createElement("div");
     div.innerHTML = `User Name: ${data.username} Email Adress:${data.email}`
     document.body.appendChild(div)
-  // })
+
 }
 
 getData()
